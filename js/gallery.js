@@ -84,12 +84,12 @@ for (const image of images) {
     event.preventDefault();
     if (event.target.classList.contains('gallery-image')) {
       const bigImg = event.target.getAttribute('src');
-        console.log(bigImg);
-        const instance = basicLightbox.create(`
+      console.log(bigImg);
+      const instance = basicLightbox.create(`
     <img src="${bigImg}">
 `);
 
-instance.show()
+      instance.show();
     }
   });
   tagA.append(tagImg);
