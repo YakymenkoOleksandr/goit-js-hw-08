@@ -67,32 +67,37 @@ const images = [
 const gallery = document.querySelector('.gallery');
 const allPictures = document.createDocumentFragment();
 
-for (const image of images) {
+const blockOfgalery = (image) => {
   const tagLi = document.createElement('li');
   tagLi.classList.add('gallery-item');
-  gallery.append(tagLi);
   const tagA = document.createElement('a');
   tagA.classList.add('gallery-link');
   tagA.setAttribute('href', image.preview);
-  tagLi.append(tagA);
   const tagImg = document.createElement('img');
   tagImg.classList.add('gallery-image');
   tagImg.setAttribute('src', image.original);
   tagImg.setAttribute('data-source', image.preview);
   tagImg.setAttribute('alt', image.description);
-  tagImg.addEventListener('click', event => {
-    event.preventDefault();
-    if (event.target.classList.contains('gallery-image')) {
-      const bigImg = event.target.getAttribute('src');
-      console.log(bigImg);
-      const instance = basicLightbox.create(`
-    <img src="${bigImg}">
-`);
-
-      instance.show();
-    }
-  });
   tagA.append(tagImg);
+  tagLi.appendChild(tagA);
+  return tagLi;
 }
 
-allPictures.appendChild(tagLi);
+for (const image of images) {
+const galleryItem = blockOfgalery(image);
+  allPictures.appendChild(galleryItem);
+ };
+
+gallery.appendChild(allPictures);
+
+gallery.addEventListener('click', event => {
+  event.preventDefault();
+  if (event.target.classList.contains('gallery-image')) {
+    const bigImg = event.target.getAttribute('src');
+    console.log(bigImg);
+    const instance = basicLightbox.create(`
+    <img src="${bigImg}">
+`);
+    instance.show();
+  }
+})
